@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohammad Nurdin Prastya Hermansah | AI Engineer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Animations specific to the Skill Clock */
+        @keyframes rotateHand {
+            from { transform: translate(-50%, -100%) rotate(0deg); }
+            to { transform: translate(-50%, -100%) rotate(360deg); }
+        }
+
+        @keyframes tiltClock {
+            0% { transform: rotateX(10deg); }
+            50% { transform: rotateX(12deg); }
+            100% { transform: rotateX(10deg); }
+        }
+
+        /* Revised Styles for Skills Section */
+        .skill-category-block {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            border: 1px solid #e0e7ff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+            transition: all 0.3s ease;
+        }
+
+        .skill-category-block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+            border-color: #60a5fa;
+        }
+
+        .skill-category-block .skill-icon {
+            font-size: 2.5rem;
+            color: #2563eb;
+            margin-bottom: 0.75rem;
+            transition: color 0.3s ease;
+        }
+
+        .skill-category-block:hover .skill-icon {
+            color: #1e40af;
+        }
+
+        .skill-category-block h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 1rem;
+        }
+
+        .skill-badges-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: flex-start;
+        }
+
+        .skill-badge {
+            background-color: #e0e7ff;
+            color: #1e40af;
+            font-size: 0.875rem;
+            padding: 0.3rem 0.75rem;
+            border-radius: 9999px;
+            transition: all 0.2s ease-in-out;
+            cursor: default;
+        }
+
+        .skill-badge:hover {
+            background-color: #93c5fd;
+            color: #1e40af;
+            transform: scale(1.05);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Styles for Project Section */
+        /* Featured Projects (Grid Layout) */
+        .project-card {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .project-card .project-tag {
+            background-color: #dbeafe;
+            color: #1e40af;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 0.5rem;
+            margin-right: 0.25rem;
+            margin-bottom: 0.25rem;
+            display: inline-block;
+        }
+
+        .project-card-inner {
+            transition: none !important;
+            transform-style: flat !important;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .project-card:hover .project-card-inner {
+            transform: none !important;
+        }
+
+        /* NEW STYLES FOR SINGLE PROJECT CARD (SIMILAR TO NEURAL BLACK IMAGE) */
+        .single-project-container {
+            background-color: #f7f9fc; /* Light background, consistent with blue-50 */
+            border-radius: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 2rem;
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            min-height: 400px; /* Adjust if needed after seeing all project descriptions */
+            justify-content: center;
+        }
+
+        @media (min-width: 768px) {
+            .single-project-container {
+                flex-direction: row;
+                text-align: left;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .single-project-container .project-image-side {
+                flex-shrink: 0;
+                width: 40%;
+            }
+            .single-project-container .project-info-side {
+                flex-grow: 1;
+                padding-left: 2rem;
+            }
+        }
+
+        .project-image-side {
+            width: 100%;
+            max-width: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .project-image-side i {
+            font-size: 10rem;
+            /* Changed gradient to blue tones from the website's main palette */
+            background: linear-gradient(to bottom right, #3b82f6, #1e40af); /* Blue gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(2px 2px 5px rgba(0,0,0,0.1));
+        }
+
+        .project-info-side {
+            flex-grow: 1;
+        }
+
+        .project-info-side h3 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #1e40af; /* Dark blue from website palette */
+            margin-bottom: 0.75rem;
+        }
+
+        .project-info-side p {
+            font-size: 1.125rem;
+            color: #3f3f46; /* Adjusted to a dark gray for consistency */
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-rating {
+            /* Keep display: none by default, will be controlled by JS if rating exists */
+            display: none; 
+        }
+
+        .project-view-button {
+            background-color: #3b82f6; /* Main blue from website palette */
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3); /* Shadow with main blue color */
+        }
+        .project-view-button:hover {
+            background-color: #2563eb; /* Darker blue on hover */
+        }
+        .project-view-button i {
+            margin-left: 0.75rem;
+        }
+
+        /* Navigation Arrows for the single card view */
+        .project-nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            z-index: 20;
+            color: #3b82f6; /* Main blue for arrows */
+            transition: all 0.3s ease;
+        }
+        .project-nav-arrow:hover {
+            background-color: #3b82f6;
+            color: white;
+        }
+        .project-nav-arrow.left {
+            left: -20px;
+        }
+        .project-nav-arrow.right {
+            right: -20px;
+        }
+
+        /* Pagination dots for the single card view */
+        .single-project-pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+            gap: 0.75rem;
+        }
+        .single-project-pagination .dot {
+            width: 10px;
+            height: 10px;
+            background-color: #93c5fd; /* Light blue dot from palette */
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .single-project-pagination .dot.active {
+            background-color: #3b82f6; /* Main blue active dot */
+            transform: scale(1.2);
+        }
+
+        .timeline-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 11px;
+            top: 24px;
+            height: calc(100% - 24px);
+            width: 2px;
+            background-color: #3b82f6;
+        }
+
+        /* Skill Clock Container (RETAINED) */
+        .skill-clock-container {
+            position: relative;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            border: 2px solid rgba(59, 130, 246, 0.5);
+            background-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 500px;
+            transform-style: preserve-3d;
+            animation: tiltClock 8s ease-in-out infinite alternate;
+        }
+
+        /* Clock Center Dot (RETAINED) */
+        .clock-center-dot {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.5);
+            z-index: 10;
+        }
+
+        /* Clock Label Text (RETAINED) */
+        .clock-label {
+            position: absolute;
+            padding: 6px 10px;
+            background-color: rgba(59, 130, 246, 0.9);
+            color: white;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+            z-index: 8;
+            transform-origin: center center;
+            transform: translate(-50%, -50%) rotateX(-10deg) rotateY(0deg) rotateZ(0deg);
+        }
+
+        /* Clock Hand (RETAINED) */
+        .clock-hand {
+            position: absolute;
+            width: 4px;
+            height: 150px;
+            background-color: #f0f0f0;
+            transform-origin: bottom center;
+            border-radius: 2px;
+            z-index: 12;
+            top: 50%;
+            left: 50%;
+            animation: rotateHand 10s linear infinite;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Profile Section - Main Grid */
+        .profile-main-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            align-items: stretch;
+        }
+
+        /* Profile Photo Card */
+        .profile-photo-card {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            text-align: center;
+        }
+
+        .profile-photo-card h3 {
+            font-size: 1.5rem;
+            color: #3b82f6;
+            margin-bottom: 0.5rem;
+            word-break: break-word;
+            max-width: 100%;
+        }
+
+        /* MODIFIED: Profile Photo - Increased size */
+        .profile-photo {
+            width: 300px; /* Increased width */
+            height: 300px; /* Increased height */
+            border-radius: 0.75rem; /* Retained from previous change */
+            object-fit: cover;
+            border: 4px solid #3b82f6;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            aspect-ratio: 1 / 1; 
+        }
+
+        /* Profile Info Card */
+        .profile-info-card {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* Specific fix for contact text to prevent overflow */
+        .profile-info-card .contact-detail {
+            word-break: break-word;
+            overflow-wrap: break-word;
+            font-size: 0.95rem;
+        }
+
+        @media (min-width: 768px) {
+            .profile-main-grid {
+                grid-template-columns: 1fr 2fr;
+            }
+            .profile-photo-card, .profile-info-card {
+                height: auto;
+                min-height: fit-content;
+            }
+            .profile-photo-card {
+                padding: 2rem;
+            }
+        }
+
+        /* Remove max-width override for .container.mx-auto */
+        .container.mx-auto {
+            /* Tailwind will automatically add max-width based on breakpoints */
+        }
+
+        @media (max-width: 768px) {
+            .skill-clock-container {
+                width: 350px;
+                height: 350px;
+            }
+            .clock-center-dot {
+                width: 20px;
+                height: 20px;
+            }
+            .clock-label {
+                font-size: 0.75rem;
+                padding: 4px 8px;
+            }
+            .clock-hand {
+                height: 100px;
+            }
+
+            /* MODIFIED: Profile photo size for small screens */
+            .profile-photo {
+                width: 200px; /* Increased width for small screens */
+                height: 200px; /* Increased height for small screens */
+            }
+        }
+
+        .hero-content-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800 font-sans">
+    <header class="fixed w-full bg-white bg-opacity-90 shadow-sm z-50">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-bold text-blue-600">Moh<span class="text-blue-800">Prastya</span></div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#beranda" class="text-blue-600 hover:text-blue-800 font-medium">Home</a>
+                    <a href="#profil" class="text-gray-600 hover:text-blue-600 font-medium">About</a>
+                    <a href="#pengalaman" class="text-gray-600 hover:text-blue-600 font-medium">Experience</a>
+                    <a href="#keterampilan" class="text-gray-600 hover:text-blue-600 font-medium">Skills</a>
+                    <a href="#proyek" class="text-gray-600 hover:text-blue-600 font-medium">Projects</a>
+                    <a href="#kontak" class="text-gray-600 hover:text-blue-600 font-medium">Contact</a>
+                </div>
+                <button class="md:hidden text-blue-600">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <section id="beranda" class="min-h-screen flex items-center pt-24 pb-12 relative overflow-hidden">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between">
+            <div class="md:w-1/2 mb-12 md:mb-0 text-center md:text-left hero-content-wrapper">
+                <h1 class="text-4xl md:text-5xl font-bold text-blue-800 mb-4 leading-tight">Mohammad Nurdin Prastya Hermansah</h1>
+                <h2 class="text-2xl md:text-3xl text-blue-600 mb-6">AI Engineer | Data Scientist | Machine Learning</h2>
+                <p class="text-lg text-gray-700 mb-8 max-w-lg mx-auto md:mx-0">Building intelligent systems with machine learning and deep learning to solve real-world problems.</p>
+                <div class="flex justify-center md:justify-start space-x-4">
+                    <a href="#kontak" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition duration-300">Contact Me</a>
+                    <a href="#proyek" class="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-lg font-medium transition duration-300">View Projects</a>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center relative">
+                <div class="skill-clock-container" id="skillClockContainer">
+                    <div class="clock-center-dot"></div>
+                    <div class="clock-hand"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="profil" class="py-20 bg-blue-50 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center text-blue-800 mb-12">About Me</h2>
+            <div class="bg-white rounded-xl shadow-lg p-8 profile-main-grid">
+                <div class="profile-photo-card">
+                    <h3 class="text-xl font-semibold text-blue-800">Profile Photo</h3>
+                    <img src="/fotoooo.png" alt="Profile Photo" class="profile-photo">
+                </div>
+
+                <div class="profile-info-card">
+                    <p class="text-lg text-gray-700">
+                        I am a final-year Electronics Engineering student with a strong interest and experience in artificial intelligence system development.
+                        I have worked on various projects related to data analysis, machine learning, and deep learning.
+                    </p>
+                    <p class="text-lg text-gray-700">
+                        I am proficient in using TensorFlow, Keras, and PyTorch for building AI models, and I apply MLOps practices for project lifecycle management.
+                        I am strongly committed to data-driven solutions and technological innovation.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                        <div class="bg-blue-100 p-6 rounded-lg">
+                            <h3 class="text-xl font-semibold text-blue-800 mb-4">Education</h3>
+                            <p class="text-gray-700"><span class="font-medium">Universitas Negeri Yogyakarta</span> | D4 Electronics Engineering | 2020 - 2025</p>
+                            <p class="text-gray-700 mt-2">GPA: 3.68</p>
+                            <p class="text-gray-700">Thesis: LSTM Implementation in IoT Water Quality Monitoring Systems</p>
+                        </div>
+                        <div class="bg-blue-100 p-6 rounded-lg">
+                            <h3 class="text-xl font-semibold text-blue-800 mb-4">Contact</h3>
+                            <p class="text-gray-700 contact-detail"><i class="fas fa-map-marker-alt text-blue-600 mr-2"></i> Gunungkidul, Yogyakarta, Indonesia</p>
+                            <p class="text-gray-700 contact-detail mt-2"><i class="fas fa-phone text-blue-600 mr-2"></i> +6289675806283</p>
+                            <p class="text-gray-700 contact-detail mt-2"><i class="fas fa-envelope text-blue-600 mr-2"></i> mohammadprastya2023@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pengalaman" class="py-20 bg-white relative">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center text-blue-800 mb-12">Work Experience</h2>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="timeline-item relative pl-8 pb-8">
+                    <div class="absolute left-0 top-0 w-6 h-6 bg-blue-600 rounded-full"></div>
+                    <div class="bg-blue-50 rounded-xl shadow-md p-6">
+                        <div class="flex flex-col md:flex-row justify-between mb-2">
+                            <h3 class="text-xl font-semibold text-blue-800">Dicoding Laskar AI - AI Engineer & Project Manager</h3>
+                            <span class="text-blue-600 font-medium">Feb 2025 - Jun 2025</span>
+                        </div>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                            <li>AI Engineer & Project Manager in a fruit and vegetable quality detection project team</li>
+                            <li>Developed CNN models for image classification and content-based recipe recommendation systems</li>
+                            <li>Built AI models with MLOps concepts and integrated AI models with websites using FastAPI</li>
+                            <li>Prepared and managed project schedules and monthly reports</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item relative pl-8 pb-8">
+                    <div class="absolute left-0 top-0 w-6 h-6 bg-blue-600 rounded-full"></div>
+                    <div class="bg-blue-50 rounded-xl shadow-md p-6">
+                        <div class="flex flex-col md:flex-row justify-between mb-2">
+                            <h3 class="text-xl font-semibold text-blue-800">PT. Stechoq Robotika Indonesia – Project Manager Intern</h3>
+                            <span class="text-blue-600 font-medium">Aug 2023 - Dec 2023</span>
+                        </div>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                            <li>Project Manager in a livestock management project team (sub-project: Gembala Tag)</li>
+                            <li>Prepared project schedules and weekly reports</li>
+                            <li>Calculated budgets and managed project documentation</li>
+                            <li>Responsible for procurement purchases in equipment acquisition process</li>
+                            <li>Involved in preparing and presenting product business models with the team</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item relative pl-8">
+                    <div class="absolute left-0 top-0 w-6 h-6 bg-blue-600 rounded-full"></div>
+                    <div class="bg-blue-50 rounded-xl shadow-md p-6">
+                        <div class="flex flex-col md:flex-row justify-between mb-2">
+                            <h3 class="text-xl font-semibold text-blue-800">PT. Stechoq Robotika Indonesia – Hardware Programmer Intern</h3>
+                            <span class="text-blue-600 font-medium">Feb 2023 - Jun 2023</span>
+                        </div>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                            <li>Hardware Programmer in an automatic fertilizer mixer project team</li>
+                            <li>Designed and implemented automation programs for mixing processes using C++</li>
+                            <li>Involved in preparing and presenting product business models with the team</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="keterampilan" class="py-20 bg-blue-50 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center text-blue-800 mb-12">Skills</h2>
+
+            <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <div class="skill-category-block">
+                    <i class="fas fa-robot skill-icon"></i>
+                    <h3>Artificial Intelligence</h3>
+                    <div class="skill-badges-wrapper">
+                        <span class="skill-badge">Regression</span>
+                        <span class="skill-badge">Classification</span>
+                        <span class="skill-badge">Clustering</span>
+                        <span class="skill-badge">Time Series Forecasting</span>
+                        <span class="skill-badge">NLP</span>
+                        <span class="skill-badge">Computer Vision</span>
+                        <span class="skill-badge">Large Language Models</span>
+                        <span class="skill-badge">Reinforcement Learning</span>
+                    </div>
+                </div>
+
+                <div class="skill-category-block">
+                    <i class="fas fa-code skill-icon"></i>
+                    <h3>Web Development</h3>
+                    <div class="skill-badges-wrapper">
+                        <span class="skill-badge">MySQL</span>
+                        <span class="skill-badge">PostgreSQL</span>
+                        <span class="skill-badge">HTML</span>
+                        <span class="skill-badge">CSS</span>
+                        <span class="skill-badge">JavaScript</span>
+                        <span class="skill-badge">Bootstrap</span>
+                    </div>
+                </div>
+
+                <div class="skill-category-block">
+                    <i class="fas fa-tools skill-icon"></i>
+                    <h3>Frameworks & Tools</h3>
+                    <div class="skill-badges-wrapper">
+                        <span class="skill-badge">TensorFlow</span>
+                        <span class="skill-badge">PyTorch</span>
+                        <span class="skill-badge">Keras</span>
+                        <span class="skill-badge">FastAPI</span>
+                        <span class="skill-badge">Docker</span>
+                        <span class="skill-badge">Git</span>
+                        <span class="skill-badge">GitHub</span>
+                        <span class="skill-badge">VSCode</span>
+                        <span class="skill-badge">Google Colab</span>
+                        <span class="skill-badge">Github Action</span>
+                        <span class="skill-badge">MLflow</span>
+                        <span class="skill-badge">Prometheus</span>
+                        <span class="skill-badge">Grafana</span>
+                        <span class="skill-badge">Metabase</span>
+                        <span class="skill-badge">Tableau</span>
+                        <span class="skill-badge">MLOps</span>
+                        <span class="skill-badge">CI/CD</span>
+                    </div>
+                </div>
+
+                <div class="skill-category-block">
+                    <i class="fas fa-laptop-code skill-icon"></i>
+                    <h3>Programming Languages</h3>
+                    <div class="skill-badges-wrapper">
+                        <span class="skill-badge">Python</span>
+                        <span class="skill-badge">C++</span>
+                        <span class="skill-badge">SQL</span>
+                        <span class="skill-badge">PHP</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="proyek" class="py-20 bg-white relative">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center text-blue-800 mb-12">My Projects</h2>
+
+            <h3 class="text-2xl font-semibold text-blue-700 mb-8 text-center">Featured Projects</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                <div class="project-card" data-categories="ComputerVision,ObjectDetection,Classification">
+                    <div class="project-card-inner bg-white rounded-xl shadow-lg overflow-hidden h-full flex flex-col">
+                        <div class="h-48 bg-blue-100 flex items-center justify-center">
+                            <i class="fas fa-car text-6xl text-blue-600"></i>
+                        </div>
+                        <div class="p-6 flex-grow">
+                            <h3 class="text-xl font-semibold text-blue-800 mb-2">Motorcycle License Plate Detection with YOLOv8</h3>
+                            <p class="text-gray-700 mb-4">Developed a two-stage object detection-based system to detect license plate positions and recognize characters (letters/numbers) on two-wheeled vehicles.</p>
+                            <div class="mb-4 project-tags-wrapper">
+                                <span class="project-tag">Computer Vision</span>
+                                <span class="project-tag">Object Detection</span>
+                                <span class="project-tag">Classification</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-2"><span class="font-medium">Results:</span> Precision: 98.27%, Recall: 100%, mAP@0.5: 98.98%</p>
+                            <p class="text-sm text-gray-600 mb-4">Inference speed &lt;10 ms per image, supporting real-time implementation</p>
+                            <a href="https://github.com/MohPras/YOLOv8-Indonesian_Plate_Reader" class="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center">
+                                View on GitHub <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-categories="ComputerVision,DeepLearning,Classification">
+                    <div class="project-card-inner bg-white rounded-xl shadow-lg overflow-hidden h-full flex flex-col">
+                        <div class="h-48 bg-blue-100 flex items-center justify-center">
+                            <i class="fas fa-apple-alt text-6xl text-blue-600"></i>
+                        </div>
+                        <div class="p-6 flex-grow">
+                            <h3 class="text-xl font-semibold text-blue-800 mb-2">Freshness Detection & Food Recipe Recommendation System</h3>
+                            <p class="text-gray-700 mb-4">Developed two integrated Machine Learning systems within a web platform to detect fruit/vegetable freshness and recommend recipes based on food ingredients.</p>
+                            <div class="mb-4 project-tags-wrapper">
+                                <span class="project-tag">Computer Vision</span>
+                                <span class="project-tag">Deep Learning</span>
+                                <span class="project-tag">Classification</span>
+                                <span class="project-tag">Content-Based Filtering</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-2"><span class="font-medium">Results:</span> CNN model accuracy: 93% (training), 92% (validation)</p>
+                            <p class="text-sm text-gray-600 mb-4">System integrated into an intuitive and user-friendly web interface</p>
+                            <a href="https://github.com/MohPras/Image-deteksi-fresScan" class="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center">
+                                View on GitHub <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-categories="ComputerVision,Classification,DeepLearning">
+                    <div class="project-card-inner bg-white rounded-xl shadow-lg overflow-hidden h-full flex flex-col">
+                        <div class="h-48 bg-blue-100 flex items-center justify-center">
+                            <i class="fas fa-tint text-6xl text-blue-600"></i>
+                        </div>
+                        <div class="p-6 flex-grow">
+                            <h3 class="text-xl font-semibold text-blue-800 mb-2">Healthy Blood Cell Classification</h3>
+                            <p class="text-gray-700 mb-4">Trained an image classification model to identify various types of blood cells using CNN architecture.</p>
+                            <div class="mb-4 project-tags-wrapper">
+                                <span class="project-tag">Computer Vision</span>
+                                <span class="project-tag">Classification</span>
+                                <span class="project-tag">Deep Learning</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-2"><span class="font-medium">Results:</span> Accuracy: 95% on training and testing data</p>
+                            <p class="text-sm text-gray-600 mb-4">High precision and recall (≥ 0.90) across almost all classes</p>
+                            <a href="https://github.com/MohPras/Image-Klasifikasi-BloodCells-" class="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center">
+                                View on GitHub <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="text-2xl font-semibold text-blue-700 mt-16 mb-8 text-center">Explore All Projects</h3>
+
+            <div class="relative single-project-container" id="projectDisplayContainer">
+                <div class="project-image-side">
+                    <i class="fas fa-cogs"></i> 
+                </div>
+                <div class="project-info-side">
+                    <h3>Project Title</h3>
+                    <p>Project description goes here.</p>
+                    <div class="project-rating">
+                        </div>
+                    <a href="#" class="project-view-button">
+                        View <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                <div class="project-nav-arrow left" id="prevProject"><i class="fas fa-chevron-left"></i></div>
+                <div class="project-nav-arrow right" id="nextProject"><i class="fas fa-chevron-right"></i></div>
+            </div>
+
+            <div class="single-project-pagination" id="projectPagination">
+                </div>
+
+            <div class="text-center mt-12">
+                <a href="https://github.com/MohPras" class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition duration-300">
+                    View All Projects on GitHub <i class="fab fa-github ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-blue-50 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center text-blue-800 mb-12">Certifications</h2>
+
+            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <div class="flex items-start mb-4">
+                        <div class="bg-blue-100 p-3 rounded-lg mr-4">
+                            <i class="fas fa-certificate text-blue-600 text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-blue-800">Building Machine Learning Systems</h3>
+                            <p class="text-gray-600">Dicoding | Jun 2025</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4">Certificate ID: 8IP2L9MENZOY</p>
+                    <a href="https://drive.google.com/file/d/13-aH0NR62PmNOtotzw06rPlYO8jWGY7A/view?usp=sharing" class="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center">
+                        View Certificate <i class="fas fa-external-link-alt ml-2"></i>
+                    </a>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <div class="flex items-start mb-4">
+                        <div class="bg-blue-100 p-3 rounded-lg mr-4">
+                            <i class="fas fa-certificate text-blue-600 text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-blue-800">Applied Machine Learning</h3>
+                            <p class="text-gray-600">Dicoding | Jun 2025</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4">Certificate ID: JMZVE679RPN9</p>
+                    <a href="https://drive.google.com/file/d/1xKn_3UevfWwsrGN4yrkIrr1LTrmiRa_g/view?usp=sharing" class="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center">
+                        View Certificate <i class="fas fa-external-link-alt ml-2"></i>
+                    </a>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <div class="flex items-start mb-4">
+                        <div class="bg-blue-100 p-3 rounded-lg mr-4">
+                            <i class="fas fa-certificate text-blue-600 text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-blue-800">Machine Learning Development</h3>
+                            <p class="text-gray-600">Dicoding | May 2025</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4">Certificate ID: 0LZ0R7N7NP65</p>
+                    <a href="https://drive.google.com/file/d/1k5iKKEcxOP2yYg6TXCLansm5XcmtKA7U/view?usp=sharing" class="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center">
+                        View Certificate <i class="fas fa-external-link-alt ml-2"></i>
+                    </a>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <div class="flex items-start mb-4">
+                        <div class="bg-blue-100 p-3 rounded-lg mr-4">
+                            <i class="fas fa-certificate text-blue-600 text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-blue-800">Data Science</h3>
+                            <p class="text-gray-600">Dicoding | Jan 2025</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4">Certificate ID: O7Z6323K2ZQR</p>
+                    <a href="https://drive.google.com/file/d/13eD4iHWS8RdEsg2YY0DG543LlzvvOC5f/view?usp=sharing" class="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center">
+                        View Certificate <i class="fas fa-external-link-alt ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-white relative">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center text-blue-800 mb-12">Awards</h2>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-blue-50 rounded-xl shadow-lg p-6 mb-6">
+                    <div class="flex flex-col md:flex-row justify-between mb-2">
+                        <h3 class="text-xl font-semibold text-blue-800">MSIB Batch 5 Kampus Merdeka Participant</h3>
+                        <span class="text-blue-600 font-medium">Jan 2024</span>
+                    </div>
+                    <p class="text-gray-700">Internship at PT. Stechoq Robotika Indonesia</p>
+                    <a href="https://drive.google.com/file/d/1pCpRSljdo8NmHAW3a1vwows5KP86b8xB/view?usp=sharing" class="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center mt-4">
+                        View Certificate <i class="fas fa-external-link-alt ml-2"></i>
+                    </a>
+                </div>
+
+                <div class="bg-blue-50 rounded-xl shadow-lg p-6">
+                    <div class="flex flex-col md:flex-row justify-between mb-2">
+                        <h3 class="text-xl font-semibold text-blue-800">MSIB Batch 4 Kampus Merdeka Participant</h3>
+                        <span class="text-blue-600 font-medium">Jun 2024</span>
+                    </div>
+                    <p class="text-gray-700">Internship at PT. Stechoq Robotika Indonesia</p>
+                    <a href="https://drive.google.com/file/d/1oR-vaIZXVT1F4rI4V9Iy7xXk4CWJZiGZ/view?usp=sharing" class="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center mt-4">
+                        View Certificate <i class="fas fa-external-link-alt ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="kontak" class="py-20 bg-blue-800 text-white relative">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">Contact Me</h2>
+
+            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Contact Information</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-4"></i>
+                            <p>Gunungkidul, Yogyakarta, Indonesia</p>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-phone mt-1 mr-4"></i>
+                            <p>+6289675806283</p>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-envelope mt-1 mr-4"></i>
+                            <p>mohammadprastya2023@gmail.com</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-8">
+                        <h3 class="text-xl font-semibold mb-4">Connect with Me</h3>
+                        <div class="flex space-x-4">
+                            <a href="https://www.linkedin.com/in/m-nurdin-prastya-h/" class="bg-blue-700 hover:bg-blue-600 w-10 h-10 rounded-full flex items-center justify-center transition duration-300">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="https://github.com/MohPras" class="bg-blue-700 hover:bg-blue-600 w-10 h-10 rounded-full flex items-center justify-center transition duration-300">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="bg-blue-700 hover:bg-blue-600 w-10 h-10 rounded-full flex items-center justify-center transition duration-300">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="bg-blue-700 hover:bg-blue-600 w-10 h-10 rounded-full flex items-center justify-center transition duration-300">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-lg text-white">
+                    <p class="mb-4">Feel free to reach out to me via email or phone for any inquiries or collaborations.</p>
+                    <p>I look forward to connecting with you!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-blue-900 text-white py-8">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="text-2xl font-bold mb-4 md:mb-0">Nurdin<span class="text-blue-300">Pras</span></div>
+                <div class="text-sm text-blue-300">
+                    &copy; 2023 Mohammad Nurdin Prastya Hermansah. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Skill Clock Logic (RETAINED)
+            const skillClockContainer = document.getElementById('skillClockContainer');
+
+            const clockLabelsData = [
+                { text: "Keras", hour: 12 },
+                { text: "TensorFlow", hour: 1 },
+                { text: "NLP", hour: 2 },
+                { text: "Computer Vision", hour: 3 },
+                { text: "Deep Learning", hour: 4 },
+                { text: "Machine Learning", hour: 5 },
+                { text: "MLOps", hour: 6 },
+                { text: "Docker", hour: 7 },
+                { text: "FastAPI", hour: 8 },
+                { text: "PyTorch", hour: 9 },
+                { text: "Prometheus", hour: 10 },
+                { text: "Git", hour: 11 }
+            ];
+
+            const clockRadius = 250;
+            const numLabels = clockLabelsData.length;
+
+            clockLabelsData.forEach((labelData, index) => {
+                const labelElement = document.createElement('span');
+                labelElement.className = 'clock-label';
+                labelElement.textContent = labelData.text;
+
+                const angle = ((labelData.hour === 12 ? 0 : labelData.hour) * 30) - 90;
+                const rad = angle * Math.PI / 180;
+
+                const x = clockRadius * Math.cos(rad);
+                const y = clockRadius * Math.sin(rad);
+
+                labelElement.style.left = `calc(50% + ${x}px)`;
+                labelElement.style.top = `calc(50% + ${y}px)`;
+
+                labelElement.style.transform = `translate(-50%, -50%) rotateX(-10deg)`;
+
+                skillClockContainer.appendChild(labelElement);
+            });
+
+
+            // Manual Project Carousel Logic (updated with corrected SMSML project)
+            const projects = [
+                {
+                    icon: 'fas fa-car',
+                    title: 'Motorcycle License Plate Detection with YOLOv8',
+                    description: 'Developed a two-stage object detection-based system to detect license plate positions and recognize characters (letters/numbers) on two-wheeled vehicles.',
+                    link: 'https://github.com/MohPras/YOLOv8-Indonesian_Plate_Reader'
+                },
+                {
+                    icon: 'fas fa-apple-alt',
+                    title: 'Freshness Detection & Food Recipe Recommendation System',
+                    description: 'Developed two integrated Machine Learning systems within a web platform to detect fruit/vegetable freshness and recommend recipes based on food ingredients.',
+                    link: 'https://github.com/MohPras/Image-deteksi-fresScan'
+                },
+                {
+                    icon: 'fas fa-tint',
+                    title: 'Healthy Blood Cell Classification',
+                    description: 'Trained an image classification model to identify various types of blood cells using CNN architecture.',
+                    link: 'https://github.com/MohPras/Image-Klasifikasi-BloodCells-'
+                },
+                {
+                    icon: 'fas fa-water',
+                    title: 'LSTM for River Water Temperature Prediction',
+                    description: 'A project using Long Short-Term Memory (LSTM) neural networks to forecast river water temperature with both univariant and multivariant approaches.',
+                    link: 'https://github.com/MohPras/Prediksi-Suhu-Air-Sungai-Dengan-Algoritma-LSTM-Unvariant-dan-Multivariant-Single-Forcasting'
+                },
+                {
+                    icon: 'fas fa-comments',
+                    title: 'Brimo App Sentiment Analysis',
+                    description: 'Sentiment analysis on Brimo (BRI Mobile) application reviews to understand user feedback and satisfaction.',
+                    link: 'https://github.com/MohPras/Analisis-Sentimen-Aplikasi-Brimo-BRI-Mobile-'
+                },
+                {
+                    icon: 'fas fa-chart-line',
+                    title: 'Data Science Attrition Project - Jaya Jaya Maju',
+                    description: 'A data science project focused on analyzing employee attrition, likely for a company named "Jaya Jaya Maju".',
+                    link: 'https://github.com/MohPras/Data-Science-Attrition-Project-Jaya-Jaya-Maju'
+                },
+                {
+                    icon: 'fas fa-university',
+                    title: 'Data Scientist - Jaya Jaya Institut',
+                    description: 'A data science project or case study related to "Jaya Jaya Institut", focusing on data analysis and insights.',
+                    link: 'https://github.com/MohPras/Data-Scientist-Jaya-Jaya-Institut'
+                },
+                {
+                    icon: 'fas fa-cogs', /* Changed icon to cogs for MLOps */
+                    title: 'MLOps Implementation Project (SMSML)', /* Updated title */
+                    description: 'A comprehensive project demonstrating MLOps principles, including CI/CD for machine learning models, monitoring, and deployment, using SMS classification as a case study.', /* Updated description */
+                    link: 'https://github.com/MohPras/SMSML_Mohammad-Nurdin-Prastya-Hermansah'
+                },
+                {
+                    icon: 'fas fa-vote-yea',
+                    title: 'Sentiment Analysis of Prabowo\'s First 100 Days',
+                    description: 'Machine learning analysis of public sentiment regarding Prabowo\'s first 100 days in office.',
+                    link: 'https://github.com/MohPras/ML_Analisis_Sentimen_100_Hari_Prabowo'
+                },
+                {
+                    icon: 'fas fa-film',
+                    title: 'Netflix Movie Analysis',
+                    description: 'Data analysis project exploring Netflix movie data to uncover trends, insights, or recommendations.',
+                    link: 'https://github.com/MohPras/ML_Netflix_Movie_Analysis'
+                },
+                {
+                    icon: 'fas fa-smog',
+                    title: 'Air Quality Data Analysis',
+                    description: 'An analysis project focused on understanding patterns and factors affecting air quality data.',
+                    link: 'https://github.com/MohPras/analisis_data_air_quality'
+                },
+                {
+                    icon: 'fas fa-calculator',
+                    title: 'Machine Learning - Logistic Regression',
+                    description: 'Implementation or application of Logistic Regression, a fundamental machine learning algorithm for classification.',
+                    link: 'https://github.com/MohPras/Machine-Learning-Logistic-Regression'
+                },
+                {
+                    icon: 'fas fa-chart-line',
+                    title: 'Machine Learning - Linear Regression',
+                    description: 'Implementation or application of Linear Regression, a basic machine learning algorithm for predicting continuous values.',
+                    link: 'https://github.com/MohPras/Machine-Learning-Linier-Regression'
+                },
+                {
+                    icon: 'fas fa-clock',
+                    title: 'Time Series Forecasting with LSTM (General)',
+                    description: 'A general project demonstrating Time Series Forecasting using Long Short-Term Memory (LSTM) neural networks.',
+                    link: 'https://github.com/MohPras/Times-Series-Forcasting-With-LSTM'
+                },
+                 {
+                    icon: 'fas fa-shopping-cart',
+                    title: 'Amazon Product Recommendation System',
+                    description: 'A collaborative filtering-based recommendation system for Amazon products, providing personalized suggestions to users by analyzing user-item interactions.',
+                    link: 'https://github.com/MohPras/System-Recomendation-Produk-Amazon'
+                }
+            ];
+
+            let currentProjectIndex = 0;
+
+            const projectDisplayContainer = document.getElementById('projectDisplayContainer');
+            const projectIcon = projectDisplayContainer.querySelector('.project-image-side i');
+            const projectTitle = projectDisplayContainer.querySelector('.project-info-side h3');
+            const projectDescription = projectDisplayContainer.querySelector('.project-info-side p');
+            const projectRating = projectDisplayContainer.querySelector('.project-rating'); // Keep this selector
+            const projectLink = projectDisplayContainer.querySelector('.project-view-button');
+            const prevButton = document.getElementById('prevProject');
+            const nextButton = document.getElementById('nextProject');
+            const paginationContainer = document.getElementById('projectPagination');
+
+            function updateProjectContent() {
+                const project = projects[currentProjectIndex];
+                projectIcon.className = project.icon; // Update icon class
+                projectTitle.textContent = project.title;
+                projectDescription.textContent = project.description;
+                
+                // Hide the rating div entirely as requested
+                projectRating.style.display = 'none';
+
+                projectLink.href = project.link;
+
+                updatePaginationDots();
+            }
+
+            function updatePaginationDots() {
+                paginationContainer.innerHTML = ''; // Clear existing dots
+                projects.forEach((_, index) => {
+                    const dot = document.createElement('span');
+                    dot.classList.add('dot');
+                    if (index === currentProjectIndex) {
+                        dot.classList.add('active');
+                    }
+                    dot.addEventListener('click', () => {
+                        currentProjectIndex = index;
+                        updateProjectContent();
+                    });
+                    paginationContainer.appendChild(dot);
+                });
+            }
+
+            prevButton.addEventListener('click', () => {
+                currentProjectIndex = (currentProjectIndex - 1 + projects.length) % projects.length;
+                updateProjectContent();
+            });
+
+            nextButton.addEventListener('click', () => {
+                currentProjectIndex = (currentProjectIndex + 1) % projects.length;
+                updateProjectContent();
+            });
+
+            // Initial load
+            updateProjectContent();
+
+            // Optional: Auto-slide
+            // let autoSlideInterval = setInterval(() => {
+            //     nextButton.click();
+            // }, 5000); // Change slide every 5 seconds
+
+            // // Pause auto-slide on hover
+            // const projectContainer = document.getElementById('projectDisplayContainer'); // Use the ID here
+            // projectContainer.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
+            // projectContainer.addEventListener('mouseleave', () => {
+            //     autoSlideInterval = setInterval(() => {
+            //         nextButton.click();
+            //     }, 5000);
+            // });
+
+        });
+    </script>
+</body>
+</html>
