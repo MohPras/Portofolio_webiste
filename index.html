@@ -166,6 +166,7 @@
             /* Changed gradient to blue tones from the website's main palette */
             background: linear-gradient(to bottom right, #3b82f6, #1e40af); /* Blue gradient */
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             filter: drop-shadow(2px 2px 5px rgba(0,0,0,0.1));
         }
@@ -400,12 +401,6 @@
                 padding: 2rem;
             }
         }
-
-        /* Remove max-width override for .container.mx-auto */
-        .container.mx-auto {
-            /* Tailwind will automatically add max-width based on breakpoints */
-        }
-
         @media (max-width: 768px) {
             .skill-clock-container {
                 width: 350px;
@@ -484,7 +479,7 @@
             <div class="bg-white rounded-xl shadow-lg p-8 profile-main-grid">
                 <div class="profile-photo-card">
                     <h3 class="text-xl font-semibold text-blue-800">Profile Photo</h3>
-                    <img src="/Frame_1.png" alt="Profile Photo" class="profile-photo">
+                    <img src="Frame_1.png" alt="Profile Photo" class="profile-photo">
                 </div>
 
                 <div class="profile-info-card">
